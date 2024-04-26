@@ -17,8 +17,12 @@ if ( isset( $_POST[ 'matricula' ] ) && isset( $_POST[ 'password' ] ) ) {
     if ( $result ) {
         $password = $result[ 'password' ];
         if ( password_verify( $pass, $hash ) ) {
+            session_start();
+            $_SESSION[ 'matricula' ] = $matricula;
+            $_SESSION['estado'] = 'activo';
             echo 'success';
         } else {
+            die();
             echo 'error';
         }
     } else {

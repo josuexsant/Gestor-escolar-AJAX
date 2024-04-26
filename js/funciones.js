@@ -7,14 +7,14 @@ $(document).ready(function () {
 
     $.ajax({
       type: "POST",
-      url: "php/controller/login.php",
+      url: "../controller/autenticar.php",
       data: {
         matricula: matricula,
         password: password,
       },
       success: function (response) {
         if (response === "success") {
-          window.location.href = "php/view/home.php";
+          window.location.href = "home.php";
         } else {
           $("#message").text(response);
         }
