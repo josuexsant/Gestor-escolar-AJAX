@@ -1,6 +1,5 @@
 <?php
 include_once '../php/config/conn.php';
-
 $query = 'SELECT * FROM dias';
 
 $stmt = $db->prepare( $query );

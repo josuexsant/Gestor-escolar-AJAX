@@ -14,11 +14,12 @@
   <div class="containter">
  <h2>Autoservicios</h2>
     <form id="login-form">
-        <label for="username">Matricula:</label>
-        <input type="text" id="username" name="username" required><br><br>
+        <label for="matricula">Matricula:</label>
+        <input type="text" id="matricula" name="matricula" required><br><br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
-        <input type="submit" value="Login">
+        <input type="submit" value="Ingresar">
+        <p id='message'></p>
     </form>
   </div>
 

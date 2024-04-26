@@ -1,23 +1,24 @@
- $(document).ready(function() {
-            $('#login-form').submit(function(e) {
-                e.preventDefault();
-                var username = $('#username').val();
-                var password = $('#password').val();
+$(document).ready(function () {
+  $("#login-form").on("submit", function (e) {
+    e.preventDefault();
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'login.php',   
-                    data: {
-                        username: username,
-                        password: password
-                    },
-                    success: function(response) {
-                        if (response == 'success') {
-                            window.location.href = 'home.php';
-                        } else {
-                            $('#message').html('Invalid username or password');
-                        }
-                    }
-                });
-            });
-        });
+    var matricula = $("#matricula").val();
+    var password = $("#password").val();
+
+    $.ajax({
+      type: "POST",
+      url: "php/controller/login.php",
+      data: {
+        matricula: matricula,
+        password: password,
+      },
+      success: function (response) {
+        if (response === "success") {
+          window.location.href = "php/view/home.php";
+        } else {
+          $("#message").text(response);
+        }
+      },
+    });
+  });
+});

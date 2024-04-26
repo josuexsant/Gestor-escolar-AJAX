@@ -1,23 +1,25 @@
 <?php
-include 'conn.php';
-
-if ( isset( $_POST[ 'username' ] ) && isset( $_POST[ 'password' ] ) ) {
-    $user = $_POST[ 'username' ];
+include '../config/conn.php';
+include '../config/log.php';
+error_log( 'login.php' );
+if ( isset( $_POST[ 'matricula' ] ) && isset( $_POST[ 'password' ] ) ) {
+    $matricula = $_POST[ 'matricula' ];
     $pass = $_POST[ 'password' ];
 
-    $stmt = $mysqli->prepare( 'SELECT password FROM passwords WHERE id_matricula = ?' );
-    $stmt->bind_param( 's', $user );
+    $hash = password_hash( $pass, PASSWORD_DEFAULT );
 
+    $query = 'SELECT password FROM passwords WHERE matricula = :matricula';
+    $stmt = $db->prepare( $query );
+    $stmt->bindValue( ':matricula', $matricula );
     $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
+    $result = $stmt->fetch();
 
-    if ( $row ) {
-        $password = $row[ 'password' ];
-        if ( password_verify( $pass, $password ) ) {
-            echo 'Login correcto';
+    if ( $result ) {
+        $password = $result[ 'password' ];
+        if ( password_verify( $pass, $hash ) ) {
+            echo 'success';
         } else {
-            echo 'Contraseña incorrecta';
+            echo 'error';
         }
     } else {
         echo 'Usuario no encontrado';
