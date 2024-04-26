@@ -2,6 +2,7 @@
 include '../config/conn.php';
 include '../config/log.php';
 error_log( 'login.php' );
+
 if ( isset( $_POST[ 'matricula' ] ) && isset( $_POST[ 'password' ] ) ) {
     $matricula = $_POST[ 'matricula' ];
     $pass = $_POST[ 'password' ];
