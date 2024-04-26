@@ -1,3 +1,8 @@
+<?php
+include 'nav.php';
+echo $nav;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
