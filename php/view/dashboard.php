@@ -18,14 +18,6 @@
   </style>
 </head>
 <body>
-  <div class="grid">
-    <?php
-    for ($i = 1; $i <= 9; $i++) {
-      for ($j = 1; $j <= 9; $j++) {
-        echo '<button class="button"></button>';
-      }
-    }
-    ?>
-  </div>
+ <H1>Pagina para los cursos</H1>
 </body>
 </html>

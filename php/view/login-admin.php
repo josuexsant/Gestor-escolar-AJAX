@@ -14,20 +14,14 @@
   <nav>
     <ul>
       <li><a href="#" id="home">Inicio</a></li>
-      <li><a href="#" id="login-admin">Admin</a></li>
     </ul>
   </nav>
   <div class='containter'>
-    <h2>Autoservicios</h2>
-    
-    <img src='#' alt='logo' id="logo-buap">
-    
-    <img src='#' alt='login-cover' id="login-cover">
-
+    <h2>Admin</h2>
     <form id='login-form'>
-      <label for='matricula'>Matricula:</label>
+      <label for='matricula'>Usuario:</label>
       <input type='text' id='matricula' name='matricula' required><br><br>
-      <label for='password'>Password:</label>
+      <label for='password'>Contraseña:</label>
       <input type='password' id='password' name='password' required><br><br>
       <input type='submit' value='Ingresar'>
       <p id='message'></p>

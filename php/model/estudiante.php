@@ -1,6 +1,4 @@
 <?php
-
-//Obtenemos una conexión a la base de datos
 include_once '../config/conn.php';
 
 class Estudiante {
@@ -13,14 +11,14 @@ class Estudiante {
     private $db;
 
     public function __construct( $id = null, $nombre = null, $apellidoPaterno = null, $apellidoMaterno = null, $nss = null, $email = null ) {
+        global $db;
         $this->id = $id;
         $this->nombre = $nombre;
         $this->apellidoPaterno = $apellidoPaterno;
         $this->apellidoMaterno = $apellidoMaterno;
         $this->nss = $nss;
         $this->email = $email;
-        $this->db = new PDO( 'mysql:host=localhost;dbname=mydb', 'usuario', 'contraseña' );
-        $this->db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+        $this->db = $db;
     }
 
     public function getId() {
@@ -67,16 +65,25 @@ class Estudiante {
         $this->email = $email;
     }
 
-    public function obtenerEstudiante(){
-        $matricula = $_SESSION['matricula'];
-        $stmt = $this->db->prepare( 'SELECT * FROM estudiantes WHERE matricula = ?' );
+    public function obtenerEstudiante() {
+        $matricula = 202160406;
+        $stmt = $this->db->prepare( 'SELECT e.*, m.* FROM estudiantes e JOIN matriculas m ON e.id = m.estudiante WHERE m.id = ?' );
         $stmt->execute( [ $matricula ] );
         $row = $stmt->fetch( PDO::FETCH_ASSOC );
-        return new Estudiante( $row[ 'id' ], $row[ 'nombre' ], $row[ 'apellido_paterno' ], $row[ 'apellido_materno' ], $row[ 'nss' ], $row[ 'email' ] );  
+
+        // Obtener datos del estudiante
+        $id = $row[ 'id' ];
+        $nombre = $row[ 'nombre' ];
+        $apellidoPaterno = $row[ 'apellido_paterno' ];
+        $apellidoMaterno = $row[ 'apellido_materno' ];
+        $nss = $row[ 'nss' ];
+        $email = $row[ 'email' ];
+
+        return new Estudiante( $id, $nombre, $apellidoPaterno, $apellidoMaterno, $nss, $email );
     }
 
     public function obtenerEstudiantes() {
-        $stmt = $this->db->query( 'SELECT * FROM estudiantes' );
+        $stmt = $db->query( 'SELECT * FROM estudiantes' );
         $estudiantes = [];
         while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ) {
             $estudiante = new Estudiante( $row[ 'id' ], $row[ 'nombre' ], $row[ 'apellido_paterno' ], $row[ 'apellido_materno' ], $row[ 'nss' ], $row[ 'email' ] );
@@ -86,27 +93,27 @@ class Estudiante {
     }
 
     public function agregarEstudiante() {
-        $stmt = $this->db->prepare( 'INSERT INTO estudiantes (nombre, apellido_paterno, apellido_materno, nss, email) VALUES (?, ?, ?, ?, ?)' );
+        $stmt = $db->prepare( 'INSERT INTO estudiantes (nombre, apellido_paterno, apellido_materno, nss, email) VALUES (?, ?, ?, ?, ?)' );
         $stmt->execute( [ $this->nombre, $this->apellidoPaterno, $this->apellidoMaterno, $this->nss, $this->email ] );
         $this->id = $this->db->lastInsertId();
         return $this->id;
     }
 
     public function obtenerEstudiantePorId( $id ) {
-        $stmt = $this->db->prepare( 'SELECT * FROM estudiantes WHERE id = ?' );
+        $stmt = $db->prepare( 'SELECT * FROM estudiantes WHERE id = ?' );
         $stmt->execute( [ $id ] );
         $row = $stmt->fetch( PDO::FETCH_ASSOC );
         return new Estudiante( $row[ 'id' ], $row[ 'nombre' ], $row[ 'apellido_paterno' ], $row[ 'apellido_materno' ], $row[ 'nss' ], $row[ 'email' ] );
     }
 
     public function actualizarEstudiante() {
-        $stmt = $this->db->prepare( 'UPDATE estudiantes SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, nss = ?, email = ? WHERE id = ?' );
+        $stmt = $db->prepare( 'UPDATE estudiantes SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, nss = ?, email = ? WHERE id = ?' );
         $stmt->execute( [ $this->nombre, $this->apellidoPaterno, $this->apellidoMaterno, $this->nss, $this->email, $this->id ] );
         return $stmt->rowCount();
     }
 
     public function eliminarEstudiante() {
-        $stmt = $this->db->prepare( 'DELETE FROM estudiantes WHERE id = ?' );
+        $stmt = $db->prepare( 'DELETE FROM estudiantes WHERE id = ?' );
         $stmt->execute( [ $this->id ] );
         return $stmt->rowCount();
     }
