@@ -1,13 +1,9 @@
 <?php
 include '../config/conn.php';
-include '../config/log.php';
-error_log( 'login.php' );
-
+session_start();
 if ( isset( $_POST[ 'matricula' ] ) && isset( $_POST[ 'password' ] ) ) {
     $matricula = $_POST[ 'matricula' ];
     $pass = $_POST[ 'password' ];
-
-    $hash = password_hash( $pass, PASSWORD_DEFAULT );
 
     $query = 'SELECT password FROM passwords WHERE matricula = :matricula';
     $stmt = $db->prepare( $query );
@@ -16,20 +12,13 @@ if ( isset( $_POST[ 'matricula' ] ) && isset( $_POST[ 'password' ] ) ) {
     $result = $stmt->fetch();
 
     if ( $result ) {
-        $password = $result[ 'password' ];
-        if ( password_verify( $pass, $hash ) ) {
-            session_start();
+        $password_hash = $result[ 'password' ];
+        if ( password_verify( $pass, $password_hash ) ) {
+
             $_SESSION[ 'matricula' ] = $matricula;
-            $_SESSION['estado'] = 'activo';
-            echo 'success';
-        } else {
-            die();
-            echo 'error';
+            $_SESSION[ 'estado' ] = 'activo';
+
+            echo 200;
         }
-    } else {
-        echo 'Usuario no encontrado';
-    }
-} else {
-    echo 'Por favor, proporciona un nombre de usuario y una contraseña';
-}
+} }
 ?>
