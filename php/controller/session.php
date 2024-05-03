@@ -6,4 +6,4 @@ if (isset($_SESSION['matricula']) && $_SESSION['estado'] == 'activo') {
 } else {
     echo 401; // User is not authenticated or session is invalid
 }
-?>
+?>  

@@ -1,5 +1,6 @@
 <?php
 include_once '../config/conn.php';
+session_start();
 
 class Estudiante {
     private $id;
@@ -66,13 +67,13 @@ class Estudiante {
     }
 
     public function obtenerEstudiante() {
-        $matricula = 202160406;
-        $stmt = $this->db->prepare( 'SELECT e.*, m.* FROM estudiantes e JOIN matriculas m ON e.id = m.estudiante WHERE m.id = ?' );
+        $matricula = $_SESSION[ 'matricula' ];
+        $stmt = $this->db->prepare( 'SELECT e.id AS id_estudiante, e.nombre, e.apellido_paterno, e.apellido_materno, e.nss, e.email, m.* FROM estudiantes e JOIN matriculas m ON e.id = m.estudiante WHERE m.id = ?' );
         $stmt->execute( [ $matricula ] );
         $row = $stmt->fetch( PDO::FETCH_ASSOC );
 
         // Obtener datos del estudiante
-        $id = $row[ 'id' ];
+        $id = $row[ 'id_estudiante' ];
         $nombre = $row[ 'nombre' ];
         $apellidoPaterno = $row[ 'apellido_paterno' ];
         $apellidoMaterno = $row[ 'apellido_materno' ];
@@ -107,7 +108,7 @@ class Estudiante {
     }
 
     public function actualizarEstudiante() {
-        $stmt = $db->prepare( 'UPDATE estudiantes SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, nss = ?, email = ? WHERE id = ?' );
+        $stmt = $this->db->prepare( 'UPDATE estudiantes SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, nss = ?, email = ? WHERE id = ?' );
         $stmt->execute( [ $this->nombre, $this->apellidoPaterno, $this->apellidoMaterno, $this->nss, $this->email, $this->id ] );
         return $stmt->rowCount();
     }

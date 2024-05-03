@@ -10,3 +10,26 @@
   padding: 2rem;
   border-radius: 1rem;
 }
+
+.card-box{
+ 
+  background-color: white;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1rem;
+
+}
+
+.btn{
+  color: tomato;
+}
+
+.panel{
+  background-color: rgb(243, 252, 255);
+  padding: 1rem;
+}
+.main-panel{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
