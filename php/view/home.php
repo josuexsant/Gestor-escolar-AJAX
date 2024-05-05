@@ -1,6 +1,4 @@
-<?php
-include '../controller/session.php';
-?>
+
 <!DOCTYPE html>
 <html lang='en'>
 
@@ -11,15 +9,7 @@ include '../controller/session.php';
 </head>
 
 <body>
-  <p>home.php</p>
-  <?php
-include '../model/estudiante.php';
-$estudiante = new Estudiante();
-$estudiante = $estudiante->obtenerEstudiante();
 
-$nombre = $estudiante->getNombre();
-echo "<h1>Bienvenido $nombre</h1>";
-?>
   <div class='main-panel'>
 
     <div class='dashboard'>
@@ -42,7 +32,16 @@ echo "<h1>Bienvenido $nombre</h1>";
       </li>
     </div>
 
-    <div class='panel' id='panel'></div>
+    <div class='panel' id='panel'>
+      <?php
+        include '../model/estudiante.php';
+        $estudiante = new Estudiante();
+        $estudiante = $estudiante->obtenerEstudiante();
+
+        $nombre = $estudiante->getNombre();
+        echo "<h1>Bienvenido $nombre</h1>";
+      ?>
+    </div>
   </div>
 </body>
 

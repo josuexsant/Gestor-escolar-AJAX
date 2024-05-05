@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="js/funciones.js" language='javascript'></script>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="img/icon.png">
 </head>
 <body>
     <!-- Here is the navigation bar -->
