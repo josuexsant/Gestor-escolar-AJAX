@@ -54,29 +54,26 @@
     $cursos = $curso->getCursos();
 
     foreach ($cursos as $curso) {
-      echo "<div class='card-box'>";
+      echo "<div class='card-box' id='{$curso->getNrc()}'>";
       echo "<table>";
       echo "<thead>";
       echo "<tr>";
       echo "<th>NRC</th>";
       echo "<th>Clave</th>";
       echo "<th>Asignatura</th>";
-      echo "<th>Creditos</th>";
-      echo "<th>Calificación</th>";
       echo "</tr>";
       echo "</thead>";
       echo "<tbody>";
       echo "<tr>";
-      echo "<td>{$curso->getNrc()}</td>";
+      echo "<td><p id ='nrc'>{$curso->getNrc()}</p></td>";
       echo "<td>{$curso->getClave()}</td>";
       echo "<td>{$curso->getAsignatura()}</td>";
-      echo "<td>{$curso->getCreditos()}</td>";
-      echo "<td>{$curso->getCalificacion()}</td>";
       echo "</tr>";
       echo "</tbody>";
       echo "</table>";
-      echo "<button>Ver detalles</button>";
-      echo "<button>Inscribit</button>";
+      echo "<div id='panel-{$curso->getNrc()}'></div>";
+      echo "<button class='showDetails btn' data-nrc='{$curso->getNrc()}' >Ver detalles</button>";
+      echo "<button class='registate btn' data-nrc='{$curso->getNrc()}'>Inscribir</button>";
       echo "</div>";
   }
   ?>

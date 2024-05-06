@@ -51,6 +51,33 @@ function profileFunctions() {
   });
 }
 
+function loadInscriptionsFunctions() {
+  console.log("Cargando inscripciones");
+  $(".registate").click(function (e) {
+    e.preventDefault();
+    var id = $(this).data("nrc");
+    console.log(id);
+  });
+
+$(".showDetails").click(function (e) {
+    e.preventDefault();
+    var nrc = $(this).data("nrc");
+    console.log(nrc);
+
+    $.ajax({
+      type: "POST",
+      url: "php/view/details.php",
+      data: {
+        nrc: nrc,
+      },
+      success: function (response) {
+        $("#panel-" + nrc).html(response);
+        console.log(response);
+      },
+    });
+});
+}
+
 function loadDashboard() {
   $("#profile").click(function (e) {
     e.preventDefault();
@@ -65,7 +92,9 @@ function loadDashboard() {
 
   $("#inscriptions").on("click", function (e) {
     e.preventDefault();
-    $("#panel").load("php/view/inscriptions.php", function () {});
+    $("#panel").load("php/view/inscriptions.php", function () {
+      loadInscriptionsFunctions();
+    });
   });
 
   $("#map").on("click", function (e) {
