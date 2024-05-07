@@ -10,12 +10,10 @@ function init() {
   });
 
   $("#logout").click(function (e) {
-    console.log("primero");
     $.ajax({
       type: "POST",
       url: "php/controller/logout.php",
       success: function (response) {
-        console.log(response);
         sessionIsActive();
       },
     });
@@ -25,7 +23,6 @@ function init() {
 function profileFunctions() {
   $("#update-email").click(function (e) {
     e.preventDefault();
-    console.log("update email");
     $("#edit-profile").load("php/view/editEmail.php", function () {
       $("#form-email").on("submit", function (e) {
         e.preventDefault();
@@ -52,12 +49,11 @@ function profileFunctions() {
 }
 
 function loadInscriptionsFunctions() {
-   $(".hideDetails").hide();
-  console.log("Cargando inscripciones");
+  $(".hideDetails").hide();
+  $(".hideDetailsInscription").hide();
   $(".registate").click(function (e) {
     e.preventDefault();
     var nrc = $(this).data("nrc");
-    console.log(nrc);
 
     $.ajax({
       type: "POST",
@@ -78,11 +74,9 @@ function loadInscriptionsFunctions() {
     });
   });
 
-
   $(".showDetails").click(function (e) {
     e.preventDefault();
     var nrc = $(this).data("nrc");
-    console.log(nrc);
 
     $.ajax({
       type: "POST",
@@ -92,7 +86,6 @@ function loadInscriptionsFunctions() {
       },
       success: function (response) {
         $("#panel-" + nrc).html(response);
-        console.log(response);
         $("#showDetails-" + nrc).hide();
         $("#hideDetails-" + nrc).show();
       },
@@ -102,7 +95,6 @@ function loadInscriptionsFunctions() {
   $(".showDetailsInscription").click(function (e) {
     e.preventDefault();
     var nrc = $(this).data("nrc");
-    console.log(nrc);
 
     $.ajax({
       type: "POST",
@@ -112,16 +104,23 @@ function loadInscriptionsFunctions() {
       },
       success: function (response) {
         $("#panel-inscription-" + nrc).html(response);
-        console.log(response);
-
+        $("#showDetailsInscription-" + nrc).hide();
+        $("#hideDetailsInscription-" + nrc).show();
       },
     });
+  });
+
+  $(".hideDetailsInscription").click(function (e) {
+    e.preventDefault();
+    var nrc = $(this).data("nrc");
+    $("#panel-inscription-" + nrc).html("");
+    $("#showDetailsInscription-" + nrc).show();
+    $("#hideDetailsInscription-" + nrc).hide();
   });
 
   $(".delete").click(function (e) {
     e.preventDefault();
     var nrc = $(this).data("nrc");
-    console.log(nrc);
 
     $.ajax({
       type: "POST",
@@ -146,7 +145,6 @@ function loadInscriptionsFunctions() {
   $(".hideDetails").click(function (e) {
     e.preventDefault();
     var nrc = $(this).data("nrc");
-    console.log(nrc);
     $("#panel-" + nrc).html("");
     $("#showDetails-" + nrc).show();
     $("#hideDetails-" + nrc).hide();
@@ -182,7 +180,6 @@ function loadDashboard() {
       type: "POST",
       url: "php/controller/logout.php",
       success: function (response) {
-        console.log(response);
         sessionIsActive();
       },
     });
@@ -210,15 +207,12 @@ function sessionIsActive() {
 }
 
 function loadNav() {
-  console.log("Cargando nav");
   $("#nav").load("php/view/nav.php", function () {
     $("#logout").click(function (e) {
-      console.log("segundo");
       $.ajax({
         type: "POST",
         url: "php/controller/logout.php",
         success: function (response) {
-          console.log(response);
           sessionIsActive();
         },
       });
@@ -230,7 +224,6 @@ function loadNav() {
     });
 
     $("#home").click(function (e) {
-      console.log("home-nav");
       e.preventDefault();
       sessionIsActive();
     });
@@ -243,8 +236,6 @@ function loadLoginForm() {
     var matricula = $("#matricula").val();
     var password = $("#password").val();
 
-    console.log(matricula);
-    console.log(password);
     $.ajax({
       type: "POST",
       url: "php/controller/autenticar.php",
@@ -254,19 +245,16 @@ function loadLoginForm() {
       },
       success: function (response) {
         if (parseInt(response) == 200) {
-          console.log("Sesión iniciada");
           $("#content").load("php/view/home.php", function () {
             loadNav();
             loadDashboard();
           });
         } else {
-          console.log(response);
           console.log("Error");
         }
       },
       error: function (response) {
         console.log("error");
-        console.log(response);
       },
     });
   });

@@ -36,7 +36,8 @@
           echo "</tbody>";
           echo "</table>";
           echo "<div id='panel-inscription-{$curso->getNrc()}'></div>";
-          echo "<button class='showDetailsInscription btn' data-nrc='{$curso->getNrc()}' >Ver detalles</button>";
+          echo "<button id='hideDetailsInscription-{$curso->getNrc()}' class='hideDetailsInscription btn' data-nrc='{$curso->getNrc()}' >Ocultar detalles</button>";
+          echo "<button id='showDetailsInscription-{$curso->getNrc()}' class='showDetailsInscription btn' data-nrc='{$curso->getNrc()}' >Ver detalles</button>";
           echo "<button class='delete btn' data-nrc='{$curso->getNrc()}'>Eliminar</button>";
           echo "</div>";
       }
