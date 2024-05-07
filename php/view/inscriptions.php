@@ -43,14 +43,17 @@
       }
   ?>
   <h3>Inscribir materias</h3>
+
+  <!-- Aquí se mostrará el buscador de materias -->
   <div class="buscador">
     <label for="buscador">Buscar materia</label>
     <input type="text" id="buscador" placeholder="Buscar materia">
-    <button id="buscar">Buscar</button>
   </div>
 
-  <!-- Aquí se mostrarán los resultados de la búsqueda -->
-  <?php
+  <div id="courses-list">
+
+    <!-- Aquí se mostrarán los resultados de la búsqueda -->
+    <?php
   //TODO: Mostrar los cursos disponibles
     include_once '../model/curso.php';
     $curso = new Curso();
@@ -81,10 +84,7 @@
       echo "</div>";
   }
   ?>
-
-
-
-
+  </div>
 </body>
 
 </html>

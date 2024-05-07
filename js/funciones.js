@@ -47,10 +47,30 @@ function profileFunctions() {
     });
   });
 }
+function loadSeachFunctions() {
+$("#buscador").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    console.log(value);
+
+    $.ajax({
+      type: "POST",
+      url: "php/controller/search.php",
+      data: {
+        value: value,
+      },
+      success: function (response) {
+        $("#courses-list").html(response);
+        loadInscriptionsFunctions();
+      },
+    });
+  });
+}
 
 function loadInscriptionsFunctions() {
+  // Hide the details of the courses
   $(".hideDetails").hide();
   $(".hideDetailsInscription").hide();
+
   $(".registate").click(function (e) {
     e.preventDefault();
     var nrc = $(this).data("nrc");
@@ -167,6 +187,7 @@ function loadDashboard() {
     e.preventDefault();
     $("#panel").load("php/view/inscriptions.php", function () {
       loadInscriptionsFunctions();
+      loadSeachFunctions();
     });
   });
 

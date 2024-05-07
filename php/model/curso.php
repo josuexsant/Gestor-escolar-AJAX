@@ -100,24 +100,25 @@ class Curso {
         return json_encode( $details );
     }
 
-    public function getHorario($nrc) {
-        $dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
-        $horario = [];  // Array to store the schedule
+    public function getHorario( $nrc ) {
+        $dias = [ 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado' ];
+        $horario = [];
+        // Array to store the schedule
 
-        for ($i = 1; $i <= 6; $i++) {
+        for ( $i = 1; $i <= 6; $i++ ) {
             $sql = 'SELECT salon, dia, hora_inicio, hora_fin FROM `asignacion-horario` WHERE curso = ? AND dia = ?';
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([$nrc, $i]);
-            $dia = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt = $this->db->prepare( $sql );
+            $stmt->execute( [ $nrc, $i ] );
+            $dia = $stmt->fetch( PDO::FETCH_ASSOC );
 
-            if ($dia) {
-                $horario[$dias[$i - 1]] = [
-                    'hora_inicio' => $dia['hora_inicio'],
-                    'hora_fin' => $dia['hora_fin'],
-                    'salon' => $dia['salon']
+            if ( $dia ) {
+                $horario[ $dias[ $i - 1 ] ] = [
+                    'hora_inicio' => $dia[ 'hora_inicio' ],
+                    'hora_fin' => $dia[ 'hora_fin' ],
+                    'salon' => $dia[ 'salon' ]
                 ];
             } else {
-                $horario[$dias[$i - 1]] = [
+                $horario[ $dias[ $i - 1 ] ] = [
                     'hora_inicio' => '--:--',
                     'hora_fin' => '--:--',
                     'salon' => ''
@@ -125,23 +126,34 @@ class Curso {
                 ];
             }
         }
-
-        return json_encode($horario);
+        return json_encode( $horario );
     }
     //proximamente
 
-    public function inscribirCurso($nrc) {
+    public function inscribirCurso( $nrc ) {
         $matricula = $_SESSION[ 'matricula' ];
         $sql = 'INSERT INTO `asignacion-cursos` (matricula, curso, terminado, calificacion) VALUES (?, ?, 0, null)';
         $stmt = $this->db->prepare( $sql );
         $stmt->execute( [ $matricula, $nrc ] );
     }
 
-    public function deleteCurso($nrc) {
+    public function deleteCurso( $nrc ) {
         $matricula = $_SESSION[ 'matricula' ];
         $sql = 'DELETE FROM `asignacion-cursos` WHERE matricula = ? AND curso = ?';
         $stmt = $this->db->prepare( $sql );
         $stmt->execute( [ $matricula, $nrc ] );
+    }
+
+    public function search( $value ) {
+        $sql = 'SELECT c.nrc AS nrc, c.clave AS clave_curso, c.periodo, a.nombre AS nombre_asignatura, a.creditos AS creditos_asignatura FROM cursos c JOIN asignaturas a ON c.asignatura = a.id WHERE a.nombre LIKE ?';
+        $stmt = $this->db->prepare( $sql );
+        $stmt->execute( [ '%' . $value . '%' ] );
+        $cursos = array();
+        while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ) {
+            $curso = new Curso( null, $row[ 'nrc' ], $row[ 'clave_curso' ], $row[ 'periodo' ], $row[ 'nombre_asignatura' ], $row[ 'creditos_asignatura' ] );
+            array_push( $cursos, $curso );
+        }
+        return $cursos;
     }
 
     public function getMatricula() {
