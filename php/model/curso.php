@@ -66,6 +66,84 @@ class Curso {
         return $cursos;
     }
 
+    public function getDetails( $nrc ) {
+        // Query to get details from the current table
+        $sql = 'SELECT seccion, cupo FROM cursos WHERE nrc = ?';
+        $stmt = $this->db->prepare( $sql );
+        $stmt->execute( [ $nrc ] );
+        $cursoDetails = $stmt->fetch( PDO::FETCH_ASSOC );
+
+        // Query to get details from another table
+        $sql = 'SELECT p.nombre, p.apellido_paterno, p.apellido_materno, p.email FROM profesores p JOIN `asignacion-profesores` ap ON ap.profesor = p.id WHERE ap.curso = ?';
+        $stmt = $this->db->prepare( $sql );
+        $stmt->execute( [ 50875 ] );
+        $asignaturaDetails = $stmt->fetch( PDO::FETCH_ASSOC );
+
+        // Query for schedule
+        $sql = 'SELECT salon, dia, hora_inicio, hora_fin FROM `asignacion-horario` WHERE curso = ?';
+        $stmt = $this->db->prepare( $sql );
+        $stmt->execute( [ 50875 ] );
+        $horario = $stmt->fetch( PDO::FETCH_ASSOC );
+
+        // Combine the results into a single array
+        $details = [
+            'curso' => $cursoDetails[ 'seccion' ],
+            'cupo' => $cursoDetails[ 'cupo' ],
+            'profesor' => $asignaturaDetails[ 'nombre' ] . ' ' . $asignaturaDetails[ 'apellido_paterno' ] . ' ' . $asignaturaDetails[ 'apellido_materno' ],
+            'email' => $asignaturaDetails[ 'email' ],
+            'salon' => $horario[ 'salon' ],
+            'dia' => $horario[ 'dia' ],
+            'hora_inicio' => $horario[ 'hora_inicio' ],
+            'hora_fin' =>  $horario[ 'hora_fin' ],
+        ];
+
+        return json_encode( $details );
+    }
+
+    public function getHorario($nrc) {
+        $dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
+        $horario = [];  // Array to store the schedule
+
+        for ($i = 1; $i <= 6; $i++) {
+            $sql = 'SELECT salon, dia, hora_inicio, hora_fin FROM `asignacion-horario` WHERE curso = ? AND dia = ?';
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$nrc, $i]);
+            $dia = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($dia) {
+                $horario[$dias[$i - 1]] = [
+                    'hora_inicio' => $dia['hora_inicio'],
+                    'hora_fin' => $dia['hora_fin'],
+                    'salon' => $dia['salon']
+                ];
+            } else {
+                $horario[$dias[$i - 1]] = [
+                    'hora_inicio' => '--:--',
+                    'hora_fin' => '--:--',
+                    'salon' => ''
+
+                ];
+            }
+        }
+
+        return json_encode($horario);
+    }
+    //proximamente
+
+    public function inscribirCurso($nrc) {
+        $matricula = $_SESSION[ 'matricula' ];
+        $sql = 'INSERT INTO `asignacion-cursos` (matricula, curso, terminado, calificacion) VALUES (?, ?, 0, null)';
+        $stmt = $this->db->prepare( $sql );
+        $stmt->execute( [ $matricula, $nrc ] );
+    }
+
+    public function deleteCurso($nrc) {
+        $matricula = $_SESSION[ 'matricula' ];
+        $sql = 'DELETE FROM `asignacion-cursos` WHERE matricula = ? AND curso = ?';
+        $stmt = $this->db->prepare( $sql );
+        $stmt->execute( [ $matricula, $nrc ] );
+    }
+
     public function getMatricula() {
         return $this->matricula;
     }

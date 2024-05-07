@@ -52,14 +52,34 @@ function profileFunctions() {
 }
 
 function loadInscriptionsFunctions() {
+   $(".hideDetails").hide();
   console.log("Cargando inscripciones");
   $(".registate").click(function (e) {
     e.preventDefault();
-    var id = $(this).data("nrc");
-    console.log(id);
+    var nrc = $(this).data("nrc");
+    console.log(nrc);
+
+    $.ajax({
+      type: "POST",
+      url: "php/controller/inscription.php",
+      data: {
+        nrc: nrc,
+      },
+      success: function (response) {
+        if (response == 200) {
+          alert("Inscripción exitosa");
+          $("#panel").load("php/view/inscriptions.php", function () {
+            loadInscriptionsFunctions();
+          });
+        } else {
+          alert(response);
+        }
+      },
+    });
   });
 
-$(".showDetails").click(function (e) {
+
+  $(".showDetails").click(function (e) {
     e.preventDefault();
     var nrc = $(this).data("nrc");
     console.log(nrc);
@@ -73,9 +93,64 @@ $(".showDetails").click(function (e) {
       success: function (response) {
         $("#panel-" + nrc).html(response);
         console.log(response);
+        $("#showDetails-" + nrc).hide();
+        $("#hideDetails-" + nrc).show();
       },
     });
-});
+  });
+
+  $(".showDetailsInscription").click(function (e) {
+    e.preventDefault();
+    var nrc = $(this).data("nrc");
+    console.log(nrc);
+
+    $.ajax({
+      type: "POST",
+      url: "php/view/details.php",
+      data: {
+        nrc: nrc,
+      },
+      success: function (response) {
+        $("#panel-inscription-" + nrc).html(response);
+        console.log(response);
+
+      },
+    });
+  });
+
+  $(".delete").click(function (e) {
+    e.preventDefault();
+    var nrc = $(this).data("nrc");
+    console.log(nrc);
+
+    $.ajax({
+      type: "POST",
+      url: "php/controller/delete.php",
+      data: {
+        nrc: nrc,
+      },
+      success: function (response) {
+        if (response == 200) {
+          alert("Inscripción eliminada");
+          // Reload the panel after deleting the course
+          $("#panel").load("php/view/inscriptions.php", function () {
+            loadInscriptionsFunctions();
+          });
+        } else {
+          alert(response);
+        }
+      },
+    });
+  });
+
+  $(".hideDetails").click(function (e) {
+    e.preventDefault();
+    var nrc = $(this).data("nrc");
+    console.log(nrc);
+    $("#panel-" + nrc).html("");
+    $("#showDetails-" + nrc).show();
+    $("#hideDetails-" + nrc).hide();
+  });
 }
 
 function loadDashboard() {
@@ -112,7 +187,6 @@ function loadDashboard() {
       },
     });
   });
-  
 }
 
 function sessionIsActive() {
