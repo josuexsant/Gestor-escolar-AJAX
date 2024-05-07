@@ -5,24 +5,27 @@ include_once '../model/curso.php';
 if ( isset( $_POST[ 'nrc' ] ) ) {
     $curso = new Curso();
     $details = $curso->getDetails( $_POST[ 'nrc' ] );
-    $horario = $curso->getHorario( 50875 );
+    $horario = $curso->getHorario($_POST['nrc'] );
     if ( $details ) {
         $details = json_decode( $details, true );
         $horario = json_decode( $horario, true );
         echo "<hr>";
         echo "
+        <br>
         <h3>Detalles del Curso</h3>
         <p>Curso: {$details['curso']}</p>
         <p>Cupo: {$details['cupo']}</p>
         <p>Profesor: {$details['profesor']}</p>
         <p>Email: {$details['email']}</p>
-        <p>Salon: {$details['salon']}</p>
+        <br>
       ";
         echo "<hr>";
 
         echo "
+        <br>
 <h3>Horario del Curso</h3>
-<table>
+<br>
+<table class='table-main'>
   <tr>
     <th></th>";
         // Celda vacía para la esquina superior izquierda

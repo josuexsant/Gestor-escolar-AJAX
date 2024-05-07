@@ -42,7 +42,7 @@ class Curso {
     }
 
     public function getCursos() {
-        $sql = 'SELECT c.nrc AS nrc, c.clave AS clave_curso, c.periodo, a.nombre AS nombre_asignatura, a.creditos AS creditos_asignatura FROM cursos c JOIN asignaturas a ON c.asignatura = a.id';
+        $sql = 'SELECT c.nrc AS nrc, c.clave AS clave_curso, c.periodo, a.nombre AS nombre_asignatura, a.creditos AS creditos_asignatura FROM cursos c JOIN asignaturas a ON c.asignatura = a.id AND c.periodo = 10';
         $stmt = $this->db->prepare( $sql );
         $stmt->execute();
         $cursos = array();
@@ -76,7 +76,7 @@ class Curso {
         // Query to get details from another table
         $sql = 'SELECT p.nombre, p.apellido_paterno, p.apellido_materno, p.email FROM profesores p JOIN `asignacion-profesores` ap ON ap.profesor = p.id WHERE ap.curso = ?';
         $stmt = $this->db->prepare( $sql );
-        $stmt->execute( [ 50875 ] );
+        $stmt->execute( [ $nrc  ] );
         $asignaturaDetails = $stmt->fetch( PDO::FETCH_ASSOC );
 
         // Query for schedule

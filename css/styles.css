@@ -96,11 +96,10 @@ body {
 
   text-decoration: none;
   transition: background-color 0.3s ease, color 0.3s ease; /* Transición en color de fondo y color de texto */
-
 }
 
 .dashboard li ul {
-margin: 15% 0;
+  margin: 15% 0;
 }
 
 .dashboard li a:hover {
@@ -108,7 +107,6 @@ margin: 15% 0;
   color: var(--primary);
   border-radius: 100rem;
   transform: translateY(-3px); /* Desplazamiento hacia arriba en hover */
-
 }
 
 .container {
@@ -140,10 +138,24 @@ margin: 15% 0;
 }
 
 .card-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: white;
-  padding: 1rem;
-  margin: 1rem;
   border-radius: 1rem;
+  margin: 1rem 0;  
+  -webkit-box-shadow: 3px 3px 5px -2px rgba(0, 0, 0, 0.13);
+  -moz-box-shadow: 3px 3px 5px -2px rgba(0, 0, 0, 0.13);
+  box-shadow: 3px 3px 5px -2px rgba(0, 0, 0, 0.13);
+}
+
+.btns {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: right;
 }
 
 #logo-buap {
@@ -151,13 +163,55 @@ margin: 15% 0;
   height: 130px;
 }
 
+.table-main {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10rem;
+  border-radius: 5px 5px 0px 0px !important;
+  -moz-border-radius: 5px 5px 0px 0px !important;
+  -webkit-border-radius: 5px 5px 0px 0px !important;
+}
+
+.table-main th,
+.table-main td {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.table-main th {
+  color: var(--primary);
+  background-color: var(--bg-secondary);
+}
+
+.table-main tr:nth-child(even) {
+  background-color: white;
+}
+
 .btn {
   background-color: var(--primary);
   color: white;
   padding: 0.5rem 1rem;
+  margin: .5rem;
   border: none;
   border-radius: 1rem;
   cursor: pointer;
+  transition: background-color 0.3s ease; /* Transición en color de fondo */
+}
+
+.btn:hover {
+  background-color: var(--secondary);
+}
+
+.btn:hover {
+  background-color: var(--secondary);
+}
+
+#buscador {
+  width: 60%;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 2rem;
+  border: 1px solid var(--secondary);
 }
 
 .panel {
@@ -166,7 +220,6 @@ margin: 15% 0;
   left: 280px;
   width: 76%;
   padding: 1rem;
-
 }
 .main-panel {
   display: flex;
@@ -180,4 +233,3 @@ margin: 15% 0;
   border-radius: 2rem;
   border: 1px solid var(--secondary);
 }
-

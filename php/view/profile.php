@@ -1,16 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
   <div class="personal-data">
     <h3>Datos personales</h3>
     <div class="card-box">
-
+      <br>
       <?php
       include '../model/estudiante.php';
       $estudiante = new Estudiante();
@@ -34,6 +35,7 @@
   <div class="academic-data">
     <h3>Matricula</h3>
     <div class="card-box">
+      <br>
       <?php
       include '../model/matricula.php';
       $matricula = new Matricula();
@@ -50,9 +52,10 @@
       echo "<p>Egreso: $egreso</p>";
       echo "<p>Carrera: $carrera</p>";
       ?>
-
+      <br>
     </div>
   </div>
 
 </body>
+
 </html>

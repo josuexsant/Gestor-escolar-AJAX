@@ -7,6 +7,7 @@
 </head>
 <body>
   <h3>Mapa de materias</h3>
+  <br>
   <embed src="src/map.pdf" type="application/pdf" width="100%" height="600px">
 </body>
 </html>

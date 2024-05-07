@@ -86,6 +86,7 @@ function loadInscriptionsFunctions() {
           alert("Inscripción exitosa");
           $("#panel").load("php/view/inscriptions.php", function () {
             loadInscriptionsFunctions();
+            loadSeachFunctions();
           });
         } else {
           alert(response);
