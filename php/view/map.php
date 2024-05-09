@@ -8,9 +8,8 @@
 </head>
 
 <body>
-  <h3>Mapa de materias</h3>
-  <br>
-  <div class="mapa">
+  <div class="ac"></div>
+  <div class="mapa" id="mapa">
     <!-- PRIMER SEMESTRE -->
     <button class="btn-asignatura" id='btn-1' data-id='1'>INTRODUCCIÓN A LAS MATEMATICAS</button>
     <button class="btn-asignatura" id='btn-13' data-id='13'>INTRODUCCIÓN A LA PROGRAMACIÓ</button>

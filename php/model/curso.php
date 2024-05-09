@@ -66,6 +66,30 @@ class Curso {
         return $cursos;
     }
 
+    public function getIds() {
+        $matricula = $_SESSION[ 'matricula' ];
+        $sql = 'SELECT ac.curso AS nrc, a.id AS id FROM `asignacion-cursos` ac JOIN cursos c ON ac.curso = c.nrc JOIN asignaturas a ON c.asignatura = a.id WHERE ac.matricula = ? AND ac.terminado = 1';
+        $stmt = $this->db->prepare( $sql );
+        $stmt->execute( [ $matricula ] );
+        $cursos = array();
+        while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ) {
+            array_push( $cursos, $row[ 'id' ] );
+        }
+        return $cursos;
+    }
+
+    public function getAvailableCourses( $id ) {
+        $sql = 'SELECT c.nrc AS nrc, c.clave AS clave_curso, c.periodo, a.nombre AS nombre_asignatura, a.creditos AS creditos_asignatura FROM cursos c JOIN asignaturas a ON c.asignatura = a.id WHERE a.id = ? and c.periodo = 10';
+        $stmt = $this->db->prepare( $sql );
+        $stmt->execute( [ $id ] );
+        $cursos = array();
+        while ( $row = $stmt->fetch( PDO::FETCH_ASSOC ) ) {
+            $curso = new Curso( null, $row[ 'nrc' ], $row[ 'clave_curso' ], $row[ 'periodo' ], $row[ 'nombre_asignatura' ], $row[ 'creditos_asignatura' ] );
+            array_push( $cursos, $curso );
+        }
+        return $cursos;
+    }
+
     public function getDetails( $nrc ) {
         // Query to get details from the current table
         $sql = 'SELECT seccion, cupo FROM cursos WHERE nrc = ?';
@@ -76,7 +100,7 @@ class Curso {
         // Query to get details from another table
         $sql = 'SELECT p.nombre, p.apellido_paterno, p.apellido_materno, p.email FROM profesores p JOIN `asignacion-profesores` ap ON ap.profesor = p.id WHERE ap.curso = ?';
         $stmt = $this->db->prepare( $sql );
-        $stmt->execute( [ $nrc  ] );
+        $stmt->execute( [ $nrc ] );
         $asignaturaDetails = $stmt->fetch( PDO::FETCH_ASSOC );
 
         // Query for schedule
@@ -145,7 +169,7 @@ class Curso {
     }
 
     public function search( $value ) {
-        $sql = 'SELECT c.nrc AS nrc, c.clave AS clave_curso, c.periodo, a.nombre AS nombre_asignatura, a.creditos AS creditos_asignatura FROM cursos c JOIN asignaturas a ON c.asignatura = a.id WHERE a.nombre LIKE ?';
+        $sql = 'SELECT c.nrc AS nrc, c.clave AS clave_curso, c.periodo, a.nombre AS nombre_asignatura, a.creditos AS creditos_asignatura FROM cursos c JOIN asignaturas a ON c.asignatura = a.id WHERE a.nombre LIKE ? AND c.periodo = 10';
         $stmt = $this->db->prepare( $sql );
         $stmt->execute( [ '%' . $value . '%' ] );
         $cursos = array();

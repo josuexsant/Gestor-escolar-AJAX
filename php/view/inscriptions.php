@@ -39,7 +39,7 @@
           echo "<div class ='btns'>";
           echo "<button id='hideDetailsInscription-{$curso->getNrc()}' class='hideDetailsInscription btn' data-nrc='{$curso->getNrc()}' >Ocultar detalles</button>";
           echo "<button id='showDetailsInscription-{$curso->getNrc()}' class='showDetailsInscription btn' data-nrc='{$curso->getNrc()}' >Ver detalles</button>";
-          echo "<button class='delete btn' data-nrc='{$curso->getNrc()}'>Eliminar</button>";
+          echo "<button class='delete btn color-red' data-nrc='{$curso->getNrc()}'>Eliminar</button>";
           echo "</div>";
           echo "</div>";
       }
@@ -83,7 +83,6 @@
       echo "<div class=btns>";
       echo "<button id='hideDetails-{$curso->getNrc()}' class='hideDetails btn' data-nrc='{$curso->getNrc()}' >Ocultar detalles</button>";
       echo "<button id='showDetails-{$curso->getNrc()}' class='showDetails btn' data-nrc='{$curso->getNrc()}' >Ver detalles</button>";
-      echo "<button class='registate btn' data-nrc='{$curso->getNrc()}'>Inscribir</button>";
       echo "</div>";
       echo "</div>";
   }

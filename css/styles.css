@@ -271,17 +271,22 @@ body {
   position: absolute;
   font-size: 8px;
   border-radius: 2px;
-  background-color: var(--secondary);
+  background-color: var(--bg-secondary);
   width: 70px;
   height: 43px;
   padding: 0.5px;
   border-style: none;
-  color: white;
+  color: var(--primary);
 }
 
 .btn-asignatura:hover {
-  background-color: var(--primary);
+  background-color: var(--secondary);
   color: white;
+}
+
+.btn-asignatura:disabled {
+  background-color: #f3bfbf;
+  color: var(--primary);
 }
 
 #btn-1 {
@@ -502,4 +507,10 @@ body {
 #btn-38{
   top: var(--fila-8);
   left: var(--columna-9);
+}
+
+
+/* colores de las materias */
+.color-red{
+  background-color: #df3a3a;
 }

@@ -47,8 +47,9 @@ function profileFunctions() {
     });
   });
 }
+
 function loadSeachFunctions() {
-$("#buscador").on("keyup", function () {
+  $("#buscador").on("keyup", function () {
     var value = $(this).val().toLowerCase();
     console.log(value);
 
@@ -199,16 +200,56 @@ function loadDashboard() {
     });
   });
 
-  function loadMap() {
-  
-  }
-
   $("#logout").click(function (e) {
     $.ajax({
       type: "POST",
       url: "php/controller/logout.php",
       success: function (response) {
         sessionIsActive();
+      },
+    });
+  });
+}
+
+function disableFinished() {
+  $.ajax({
+    type: "POST",
+    url: "php/controller/finished-courses.php",
+    success: function (response) {
+      var data = JSON.parse(response);
+      console.log(data);
+      for (var i = 0; i < data.length; i++) {
+        var id = data[i]; // Aquí está la corrección
+        $("#btn-" + id).prop("disabled", true);
+        $("#btn-" + id).css("background-color", "#e6fdd8");
+      }
+    },
+  });
+}
+
+function loadMap() {
+  disableFinished();
+  $(".btn-asignatura").each(function () {
+    this.disabled = true;
+    var data = $(this).data("id");
+    var aCursar = [3, 8, 15, 21, 29, 42]; 
+    if (aCursar.includes(data)) { // Aquí está la corrección
+      $(this).prop("disabled", false);
+    }
+  });
+
+  $(".btn-asignatura").click(function (e) {
+    var id = $(this).data("id");
+    console.log(id);
+    $.ajax({
+      type: "POST",
+      url: "php/controller/available-courses.php",
+      data: {
+        id: id,
+      },
+      success: function (response) {
+        $("#panel").html(response);
+        loadInscriptionsFunctions();
       },
     });
   });

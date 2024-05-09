@@ -17,13 +17,13 @@
           <a href='#' id='profile'>Perfil</a>
         </ul>
         <ul>
-          <a href='#' id='courses'>Mis cursos</a>
+          <a href='#' id='courses'>Historial</a>
         </ul>
         <ul>
-          <a href='#' id='inscriptions'>Inscribir curso</a>
+          <a href='#' id='inscriptions'>Ver cursos</a>
         </ul>
         <ul>
-          <a href='#' id='map'>Mapa carrera</a>
+          <a href='#' id='map'>Inscribir carrera</a>
         </ul>
         <ul>
           <a href='#' id='logout'>Salir</a>
