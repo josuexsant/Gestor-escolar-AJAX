@@ -194,8 +194,14 @@ function loadDashboard() {
 
   $("#map").on("click", function (e) {
     e.preventDefault();
-    $("#panel").load("php/view/map.php", function () {});
+    $("#panel").load("php/view/map.php", function () {
+      loadMap();
+    });
   });
+
+  function loadMap() {
+  
+  }
 
   $("#logout").click(function (e) {
     $.ajax({

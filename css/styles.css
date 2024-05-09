@@ -10,6 +10,30 @@
   --bg-secondary: #e5ebf3;
   --primary: #043f5d;
   --secondary: #0d9ecb;
+
+  /* Cuadrícula para el mapa de materias */
+  --columna-1:104px;
+  --columna-2:190px;
+  --columna-3:276px;
+  --columna-4:366px;
+  --columna-4-2:359px;
+  --columna-5:458px;
+  --columna-5-2:452px;
+  --columna-6:555px;
+  --columna-6-2:549px;
+  --columna-7: 653px;
+  --columna-8:745px;
+  --columna-9:829px;
+
+  --fila-1: 61px;
+  --fila-2:132px;
+  --fila-3:188px;
+  --fila-4:266px;
+  --fila-5:320px;
+  --fila-6:390px;
+  --fila-7:445px;
+  --fila-8:501px;
+  --fila-9:552px;
 }
 
 body {
@@ -144,7 +168,7 @@ body {
   align-items: center;
   background-color: white;
   border-radius: 1rem;
-  margin: 1rem 0;  
+  margin: 1rem 0;
   -webkit-box-shadow: 3px 3px 5px -2px rgba(0, 0, 0, 0.13);
   -moz-box-shadow: 3px 3px 5px -2px rgba(0, 0, 0, 0.13);
   box-shadow: 3px 3px 5px -2px rgba(0, 0, 0, 0.13);
@@ -187,11 +211,20 @@ body {
   background-color: white;
 }
 
+.mapa {
+  position: relative;
+  background-image: url(../img/mapa.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 900px;
+  height: 700px;
+}
+
 .btn {
   background-color: var(--primary);
   color: white;
   padding: 0.5rem 1rem;
-  margin: .5rem;
+  margin: 0.5rem;
   border: none;
   border-radius: 1rem;
   cursor: pointer;
@@ -232,4 +265,241 @@ body {
   margin: 0.5rem;
   border-radius: 2rem;
   border: 1px solid var(--secondary);
+}
+
+.btn-asignatura {
+  position: absolute;
+  font-size: 8px;
+  border-radius: 2px;
+  background-color: var(--secondary);
+  width: 70px;
+  height: 43px;
+  padding: 0.5px;
+  border-style: none;
+  color: white;
+}
+
+.btn-asignatura:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+#btn-1 {
+  top: var(--fila-1);
+  left: 104px;
+}
+
+#btn-13{
+  top: 266px;
+  left: var(--columna-1);
+}
+
+#btn-20{
+  top: var(--fila-5);
+  left: var(--columna-1);
+}
+
+#btn-34{
+  top: 500px;
+  left: var(--columna-1);
+}
+
+#btn-39{
+  top: var(--fila-9);
+  left: var(--columna-1);
+}
+
+#btn-2{
+  top: var(--fila-1);
+  left: var(--columna-2);
+}
+
+#btn-7{
+  top: var(--fila-2);
+  left: var(--columna-2);
+}
+
+#btn-14{
+  top: var(--fila-4);
+  left: var(--columna-2);
+}
+
+#btn-21{
+  top: var(--fila-5);
+  left: var(--columna-2);
+}
+
+#btn-35{
+  top: var(--fila-8);
+  left: var(--columna-2);
+}
+
+#btn-40{
+  top: var(--fila-9);
+  left: var(--columna-2);
+}
+
+#btn-3{
+  top: var(--fila-1);
+  left: var(--columna-3);
+}
+
+#btn-8{
+  top: var(--fila-2);
+  left: var(--columna-3);
+}
+
+#btn-15{
+  top: var(--fila-4);
+  left: var(--columna-3);
+}
+
+#btn-29{
+  top: 441px;
+  left: 279px;
+}
+
+#btn-41{
+  top: var(--fila-9);
+  left: var(--columna-3);
+}
+
+#btn-4{
+  top: var(--fila-1);
+  left: var(--columna-4);
+}
+
+#btn-9{
+  top: var(--fila-2);
+  left: var(--columna-4);
+}
+
+#btn-16{
+  top: var(--fila-4);
+  left: var(--columna-4-2);
+}
+
+#btn-22{
+  top: 319px;
+  left: var(--columna-4-2);
+}
+
+#btn-42{
+  top: var(--fila-9);
+  left: var(--columna-4-2);
+}
+
+#btn-5{
+  top: var(--fila-1);
+  left: var(--columna-5);
+}
+
+#btn-11{
+  top: var(--fila-3);
+  left: 455px;
+}
+
+#btn-17{
+  top: var(--fila-4);
+  left: var(--columna-5-2);
+}
+
+#btn-23{
+  top: 320px;
+  left: 451px;
+}
+
+#btn-26{
+  top: var(--fila-6);
+  left: var(--columna-5-2);
+}
+
+#btn-6{
+  top: var(--fila-1);
+  left: var(--columna-6);
+}
+
+#btn-12{
+  top: var(--fila-3);
+  left: var(--columna-6-2);
+}
+
+#btn-18{
+  top: var(--fila-4);
+  left: var(--columna-6-2);
+}
+
+#btn-24{
+  top: 322px;
+  left: var(--columna-6-2);
+}
+
+#btn-27{
+  top: var(--fila-6);
+  left: var(--columna-6-2);
+}
+
+#btn-30{
+  top: var(--fila-7);
+  left: var(--columna-6-2);
+}
+
+#btn-19{
+  top: var(--fila-4);
+  left: var(--columna-7);
+}
+
+#btn-25{
+  top: 321px;
+  left: var(--columna-7);
+}
+
+#btn-31{
+  top: var(--fila-7);
+  left: var(--columna-7);
+}
+
+#btn-36{
+  top: var(--fila-8);
+  left: var(--columna-7);
+}
+
+#btn-43{
+  top: 557px;
+  left: var(--columna-7);
+}
+
+#btn-28{
+  top: var(--fila-6);
+  left: var(--columna-8);
+}
+
+#btn-32{
+  top: 449px;
+  left: var(--columna-8);
+}
+
+#btn-37{
+  top: var(--fila-8);
+  left: var(--columna-8);
+}
+
+#btn-44{
+  top: 557px;
+  left: var(--columna-8);
+}
+
+#btn-10{
+  top: var(--fila-2);
+  left: var(--columna-9);
+}
+
+#btn-33{
+  top: 449px;
+  left: var(--columna-9);
+}
+
+#btn-38{
+  top: var(--fila-8);
+  left: var(--columna-9);
 }
