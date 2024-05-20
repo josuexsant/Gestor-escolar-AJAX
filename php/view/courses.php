@@ -17,7 +17,7 @@
 
   foreach ($cursos as $curso) {
     echo "<div class='card-box'>";
-    echo "<table>";
+    echo "<table class='table-main'>";
     echo "<thead>";
     echo "<tr>";
     echo "<th>NRC</th>";
@@ -42,7 +42,6 @@
   }
   ?>
 
-  <button>Inscribit</button>
 </body>
 
 </html>

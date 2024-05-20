@@ -10,12 +10,10 @@ function init() {
   });
 
   $("#logout").click(function (e) {
-    console.log("primero");
     $.ajax({
       type: "POST",
       url: "php/controller/logout.php",
       success: function (response) {
-        console.log(response);
         sessionIsActive();
       },
     });
@@ -25,7 +23,6 @@ function init() {
 function profileFunctions() {
   $("#update-email").click(function (e) {
     e.preventDefault();
-    console.log("update email");
     $("#edit-profile").load("php/view/editEmail.php", function () {
       $("#form-email").on("submit", function (e) {
         e.preventDefault();
@@ -51,6 +48,131 @@ function profileFunctions() {
   });
 }
 
+function loadSeachFunctions() {
+  $("#buscador").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    console.log(value);
+
+    $.ajax({
+      type: "POST",
+      url: "php/controller/search.php",
+      data: {
+        value: value,
+      },
+      success: function (response) {
+        $("#courses-list").html(response);
+        loadInscriptionsFunctions();
+      },
+    });
+  });
+}
+
+function loadInscriptionsFunctions() {
+  // Hide the details of the courses
+  $(".hideDetails").hide();
+  $(".hideDetailsInscription").hide();
+
+  $(".registate").click(function (e) {
+    e.preventDefault();
+    var nrc = $(this).data("nrc");
+
+    $.ajax({
+      type: "POST",
+      url: "php/controller/inscription.php",
+      data: {
+        nrc: nrc,
+      },
+      success: function (response) {
+        if (response == 200) {
+          alert("Inscripción exitosa");
+          $("#panel").load("php/view/inscriptions.php", function () {
+            loadInscriptionsFunctions();
+            loadSeachFunctions();
+          });
+        } else {
+          alert(response);
+        }
+      },
+    });
+  });
+
+  $(".showDetails").click(function (e) {
+    e.preventDefault();
+    var nrc = $(this).data("nrc");
+
+    $.ajax({
+      type: "POST",
+      url: "php/view/details.php",
+      data: {
+        nrc: nrc,
+      },
+      success: function (response) {
+        $("#panel-" + nrc).html(response);
+        $("#showDetails-" + nrc).hide();
+        $("#hideDetails-" + nrc).show();
+      },
+    });
+  });
+
+  $(".showDetailsInscription").click(function (e) {
+    e.preventDefault();
+    var nrc = $(this).data("nrc");
+
+    $.ajax({
+      type: "POST",
+      url: "php/view/details.php",
+      data: {
+        nrc: nrc,
+      },
+      success: function (response) {
+        $("#panel-inscription-" + nrc).html(response);
+        $("#showDetailsInscription-" + nrc).hide();
+        $("#hideDetailsInscription-" + nrc).show();
+      },
+    });
+  });
+
+  $(".hideDetailsInscription").click(function (e) {
+    e.preventDefault();
+    var nrc = $(this).data("nrc");
+    $("#panel-inscription-" + nrc).html("");
+    $("#showDetailsInscription-" + nrc).show();
+    $("#hideDetailsInscription-" + nrc).hide();
+  });
+
+  $(".delete").click(function (e) {
+    e.preventDefault();
+    var nrc = $(this).data("nrc");
+
+    $.ajax({
+      type: "POST",
+      url: "php/controller/delete.php",
+      data: {
+        nrc: nrc,
+      },
+      success: function (response) {
+        if (response == 200) {
+          alert("Inscripción eliminada");
+          // Reload the panel after deleting the course
+          $("#panel").load("php/view/inscriptions.php", function () {
+            loadInscriptionsFunctions();
+          });
+        } else {
+          alert(response);
+        }
+      },
+    });
+  });
+
+  $(".hideDetails").click(function (e) {
+    e.preventDefault();
+    var nrc = $(this).data("nrc");
+    $("#panel-" + nrc).html("");
+    $("#showDetails-" + nrc).show();
+    $("#hideDetails-" + nrc).hide();
+  });
+}
+
 function loadDashboard() {
   $("#profile").click(function (e) {
     e.preventDefault();
@@ -65,12 +187,17 @@ function loadDashboard() {
 
   $("#inscriptions").on("click", function (e) {
     e.preventDefault();
-    $("#panel").load("php/view/inscriptions.php", function () {});
+    $("#panel").load("php/view/inscriptions.php", function () {
+      loadInscriptionsFunctions();
+      loadSeachFunctions();
+    });
   });
 
   $("#map").on("click", function (e) {
     e.preventDefault();
-    $("#panel").load("php/view/map.php", function () {});
+    $("#panel").load("php/view/map.php", function () {
+      loadMap();
+    });
   });
 
   $("#logout").click(function (e) {
@@ -78,12 +205,54 @@ function loadDashboard() {
       type: "POST",
       url: "php/controller/logout.php",
       success: function (response) {
-        console.log(response);
         sessionIsActive();
       },
     });
   });
-  
+}
+
+function disableFinished() {
+  $.ajax({
+    type: "POST",
+    url: "php/controller/finished-courses.php",
+    success: function (response) {
+      var data = JSON.parse(response);
+      console.log(data);
+      for (var i = 0; i < data.length; i++) {
+        var id = data[i]; // Aquí está la corrección
+        $("#btn-" + id).prop("disabled", true);
+        $("#btn-" + id).css("background-color", "#e6fdd8");
+      }
+    },
+  });
+}
+
+function loadMap() {
+  disableFinished();
+  $(".btn-asignatura").each(function () {
+    this.disabled = true;
+    var data = $(this).data("id");
+    var aCursar = [3, 8, 15, 21, 29, 42]; 
+    if (aCursar.includes(data)) { // Aquí está la corrección
+      $(this).prop("disabled", false);
+    }
+  });
+
+  $(".btn-asignatura").click(function (e) {
+    var id = $(this).data("id");
+    console.log(id);
+    $.ajax({
+      type: "POST",
+      url: "php/controller/available-courses.php",
+      data: {
+        id: id,
+      },
+      success: function (response) {
+        $("#panel").html(response);
+        loadInscriptionsFunctions();
+      },
+    });
+  });
 }
 
 function sessionIsActive() {
@@ -107,15 +276,12 @@ function sessionIsActive() {
 }
 
 function loadNav() {
-  console.log("Cargando nav");
   $("#nav").load("php/view/nav.php", function () {
     $("#logout").click(function (e) {
-      console.log("segundo");
       $.ajax({
         type: "POST",
         url: "php/controller/logout.php",
         success: function (response) {
-          console.log(response);
           sessionIsActive();
         },
       });
@@ -127,7 +293,6 @@ function loadNav() {
     });
 
     $("#home").click(function (e) {
-      console.log("home-nav");
       e.preventDefault();
       sessionIsActive();
     });
@@ -140,8 +305,6 @@ function loadLoginForm() {
     var matricula = $("#matricula").val();
     var password = $("#password").val();
 
-    console.log(matricula);
-    console.log(password);
     $.ajax({
       type: "POST",
       url: "php/controller/autenticar.php",
@@ -151,19 +314,16 @@ function loadLoginForm() {
       },
       success: function (response) {
         if (parseInt(response) == 200) {
-          console.log("Sesión iniciada");
           $("#content").load("php/view/home.php", function () {
             loadNav();
             loadDashboard();
           });
         } else {
-          console.log(response);
           console.log("Error");
         }
       },
       error: function (response) {
         console.log("error");
-        console.log(response);
       },
     });
   });
