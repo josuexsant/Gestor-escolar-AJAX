@@ -9,16 +9,26 @@
 
 <body>
 
-  <div class='containter'>
-    <h2>Admin</h2>
-    <form id='login-form'>
-      <label for='matricula'>Usuario:</label>
-      <input type='text' id='matricula' name='matricula' required><br><br>
-      <label for='password'>Contraseña:</label>
-      <input type='password' id='password' name='password' required><br><br>
-      <input type='submit' value='Ingresar'>
-      <p id='message'></p>
-    </form>
+<div class="container">
+
+    <div class="container-cover">
+     
+    </div>
+
+    <div class="container-form">
+      <img src="img/logo.png" alt='logo' id='logo-buap'>
+      <h2>Admin</h2>
+      <form id='login-form-admin' method='POST'>
+        <label for='matricula'>Usuario:</label>
+        <br>
+        <input type='text' class="input-text" id='matricula' name='matricula' required><br><br>
+        <label for='password'>Contraseña:</label>
+        <br>
+        <input type='password' class="input-text" id='password' name='password' required><br><br>
+        <input type='submit' class="btn" value='Ingresar'>
+        <p id='message'></p>
+      </form>
+    </div>
   </div>
 
 </body>

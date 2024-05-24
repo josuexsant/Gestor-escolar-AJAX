@@ -173,6 +173,33 @@ function loadInscriptionsFunctions() {
   });
 }
 
+function loadDashboardAdmin() {
+  $("#add-student").click(function (e) {
+    e.preventDefault();
+    $("#panel").load("php/view/add-student.php");
+  });
+
+  $("#edit-student").click(function (e) {   
+    e.preventDefault();
+    $("#panel").load("php/view/edit-student.php");
+  });
+
+  $("#delete-student").click(function (e) {
+    e.preventDefault();
+    $("#panel").load("php/view/delete-student.php");
+  });
+
+  $("#logout").click(function (e) {
+    $.ajax({
+      type: "POST",
+      url: "php/controller/logout.php",
+      success: function (response) {
+        sessionIsActive();
+      },
+    });
+  });
+}
+
 function loadDashboard() {
   $("#profile").click(function (e) {
     e.preventDefault();
@@ -221,7 +248,7 @@ function disableFinished() {
       for (var i = 0; i < data.length; i++) {
         var id = data[i]; // Aquí está la corrección
         $("#btn-" + id).prop("disabled", true);
-        $("#btn-" + id).css("background-color", "#e6fdd8");
+        $("#btn-" + id).css("background-color", "#F1F1F1");
       }
     },
   });
@@ -265,6 +292,11 @@ function sessionIsActive() {
           loadNav();
           loadDashboard();
         });
+      }else if (response == 201) {
+        $("#content").load("php/view/homeAdmin.php", function () {
+          loadNav();
+          loadDashboardAdmin();
+        });
       } else {
         $("#content").load("php/view/login.php", function () {
           loadNav();
@@ -289,7 +321,9 @@ function loadNav() {
 
     $("#login-admin").click(function (e) {
       e.preventDefault();
-      $("#content").load("php/view/login-admin.php");
+      $("#content").load("php/view/login-admin.php", function () {
+        loadLoginFormAdmin();
+      });
     });
 
     $("#home").click(function (e) {
@@ -315,6 +349,36 @@ function loadLoginForm() {
       success: function (response) {
         if (parseInt(response) == 200) {
           $("#content").load("php/view/home.php", function () {
+            loadNav();
+            loadDashboard();
+          });
+        } else {
+          console.log("Error");
+        }
+      },
+      error: function (response) {
+        console.log("error");
+      },
+    });
+  });
+}
+
+function loadLoginFormAdmin() {
+  $("#login-form-admin").on("submit", function (e) {
+    e.preventDefault();
+    var matricula = $("#matricula").val();
+    var password = $("#password").val();
+
+    $.ajax({
+      type: "POST",
+      url: "php/controller/autenticarAdmin.php",
+      data: {
+        matricula: matricula,
+        password: password,
+      },
+      success: function (response) {
+        if (parseInt(response) == 200) {
+          $("#content").load("php/view/homeAdmin.php", function () {
             loadNav();
             loadDashboard();
           });

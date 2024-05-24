@@ -22,7 +22,7 @@
         <label for='matricula'>Matricula:</label>
         <br>
         <input type='text' class="input-text" id='matricula' name='matricula' required><br><br>
-        <label for='password'>Password:</label>
+        <label for='password'>Contraseña:</label>
         <br>
         <input type='password' class="input-text" id='password' name='password' required><br><br>
         <input type='submit' class="btn" value='Ingresar'>

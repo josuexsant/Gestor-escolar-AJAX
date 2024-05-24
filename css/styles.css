@@ -12,28 +12,28 @@
   --secondary: #0d9ecb;
 
   /* Cuadrícula para el mapa de materias */
-  --columna-1:104px;
-  --columna-2:190px;
-  --columna-3:276px;
-  --columna-4:366px;
-  --columna-4-2:359px;
-  --columna-5:458px;
-  --columna-5-2:452px;
-  --columna-6:555px;
-  --columna-6-2:549px;
+  --columna-1: 104px;
+  --columna-2: 190px;
+  --columna-3: 276px;
+  --columna-4: 366px;
+  --columna-4-2: 359px;
+  --columna-5: 458px;
+  --columna-5-2: 452px;
+  --columna-6: 555px;
+  --columna-6-2: 549px;
   --columna-7: 653px;
-  --columna-8:745px;
-  --columna-9:829px;
+  --columna-8: 745px;
+  --columna-9: 829px;
 
   --fila-1: 61px;
-  --fila-2:132px;
-  --fila-3:188px;
-  --fila-4:266px;
-  --fila-5:320px;
-  --fila-6:390px;
-  --fila-7:445px;
-  --fila-8:501px;
-  --fila-9:552px;
+  --fila-2: 132px;
+  --fila-3: 188px;
+  --fila-4: 266px;
+  --fila-5: 320px;
+  --fila-6: 390px;
+  --fila-7: 445px;
+  --fila-8: 501px;
+  --fila-9: 552px;
 }
 
 body {
@@ -271,21 +271,23 @@ body {
   position: absolute;
   font-size: 8px;
   border-radius: 2px;
-  background-color: var(--bg-secondary);
+  background-color: var(--secondary);
   width: 70px;
-  height: 43px;
+  height: 45px;
   padding: 0.5px;
   border-style: none;
-  color: var(--primary);
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* Transición en transform, color de fondo y color de texto */
+  color: white;
 }
 
 .btn-asignatura:hover {
-  background-color: var(--secondary);
+  transform: scale(1.1); /* Agrega un efecto de escala al hacer hover */
+  background-color: var(--primary);
   color: white;
 }
 
 .btn-asignatura:disabled {
-  background-color: #f3bfbf;
+  background-color: #ffdfdf;
   color: var(--primary);
 }
 
@@ -294,223 +296,222 @@ body {
   left: 104px;
 }
 
-#btn-13{
+#btn-13 {
   top: 266px;
   left: var(--columna-1);
 }
 
-#btn-20{
+#btn-20 {
   top: var(--fila-5);
   left: var(--columna-1);
 }
 
-#btn-34{
+#btn-34 {
   top: 500px;
   left: var(--columna-1);
 }
 
-#btn-39{
+#btn-39 {
   top: var(--fila-9);
   left: var(--columna-1);
 }
 
-#btn-2{
+#btn-2 {
   top: var(--fila-1);
   left: var(--columna-2);
 }
 
-#btn-7{
+#btn-7 {
   top: var(--fila-2);
   left: var(--columna-2);
 }
 
-#btn-14{
+#btn-14 {
   top: var(--fila-4);
   left: var(--columna-2);
 }
 
-#btn-21{
+#btn-21 {
   top: var(--fila-5);
   left: var(--columna-2);
 }
 
-#btn-35{
+#btn-35 {
   top: var(--fila-8);
   left: var(--columna-2);
 }
 
-#btn-40{
+#btn-40 {
   top: var(--fila-9);
   left: var(--columna-2);
 }
 
-#btn-3{
+#btn-3 {
   top: var(--fila-1);
   left: var(--columna-3);
 }
 
-#btn-8{
+#btn-8 {
   top: var(--fila-2);
   left: var(--columna-3);
 }
 
-#btn-15{
+#btn-15 {
   top: var(--fila-4);
   left: var(--columna-3);
 }
 
-#btn-29{
+#btn-29 {
   top: 441px;
   left: 279px;
 }
 
-#btn-41{
+#btn-41 {
   top: var(--fila-9);
   left: var(--columna-3);
 }
 
-#btn-4{
+#btn-4 {
   top: var(--fila-1);
   left: var(--columna-4);
 }
 
-#btn-9{
+#btn-9 {
   top: var(--fila-2);
   left: var(--columna-4);
 }
 
-#btn-16{
+#btn-16 {
   top: var(--fila-4);
   left: var(--columna-4-2);
 }
 
-#btn-22{
+#btn-22 {
   top: 319px;
   left: var(--columna-4-2);
 }
 
-#btn-42{
+#btn-42 {
   top: var(--fila-9);
   left: var(--columna-4-2);
 }
 
-#btn-5{
+#btn-5 {
   top: var(--fila-1);
   left: var(--columna-5);
 }
 
-#btn-11{
+#btn-11 {
   top: var(--fila-3);
   left: 455px;
 }
 
-#btn-17{
+#btn-17 {
   top: var(--fila-4);
   left: var(--columna-5-2);
 }
 
-#btn-23{
+#btn-23 {
   top: 320px;
   left: 451px;
 }
 
-#btn-26{
+#btn-26 {
   top: var(--fila-6);
   left: var(--columna-5-2);
 }
 
-#btn-6{
+#btn-6 {
   top: var(--fila-1);
   left: var(--columna-6);
 }
 
-#btn-12{
+#btn-12 {
   top: var(--fila-3);
   left: var(--columna-6-2);
 }
 
-#btn-18{
+#btn-18 {
   top: var(--fila-4);
   left: var(--columna-6-2);
 }
 
-#btn-24{
+#btn-24 {
   top: 322px;
   left: var(--columna-6-2);
 }
 
-#btn-27{
+#btn-27 {
   top: var(--fila-6);
   left: var(--columna-6-2);
 }
 
-#btn-30{
+#btn-30 {
   top: var(--fila-7);
   left: var(--columna-6-2);
 }
 
-#btn-19{
+#btn-19 {
   top: var(--fila-4);
   left: var(--columna-7);
 }
 
-#btn-25{
+#btn-25 {
   top: 321px;
   left: var(--columna-7);
 }
 
-#btn-31{
+#btn-31 {
   top: var(--fila-7);
   left: var(--columna-7);
 }
 
-#btn-36{
+#btn-36 {
   top: var(--fila-8);
   left: var(--columna-7);
 }
 
-#btn-43{
+#btn-43 {
   top: 557px;
   left: var(--columna-7);
 }
 
-#btn-28{
+#btn-28 {
   top: var(--fila-6);
   left: var(--columna-8);
 }
 
-#btn-32{
+#btn-32 {
   top: 449px;
   left: var(--columna-8);
 }
 
-#btn-37{
+#btn-37 {
   top: var(--fila-8);
   left: var(--columna-8);
 }
 
-#btn-44{
+#btn-44 {
   top: 557px;
   left: var(--columna-8);
 }
 
-#btn-10{
+#btn-10 {
   top: var(--fila-2);
   left: var(--columna-9);
 }
 
-#btn-33{
+#btn-33 {
   top: 449px;
   left: var(--columna-9);
 }
 
-#btn-38{
+#btn-38 {
   top: var(--fila-8);
   left: var(--columna-9);
 }
 
-
 /* colores de las materias */
-.color-red{
+.color-red {
   background-color: #df3a3a;
 }

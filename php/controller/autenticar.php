@@ -18,7 +18,7 @@ if ( isset( $_POST[ 'matricula' ] ) && isset( $_POST[ 'password' ] ) ) {
             session_start();
             $_SESSION[ 'matricula' ] = $matricula;
             $_SESSION[ 'estado' ] = 'activo';
-
+            $_SESSION[ 'tipo' ] = 'estudiante';
             echo 200;
         } else {
             echo 401;
