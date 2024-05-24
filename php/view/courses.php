@@ -20,7 +20,7 @@
     echo "<table class='table-main'>";
     echo "<thead>";
     echo "<tr>";
-    echo "<th>NRC</th>";
+    //echo "<th>NRC</th>";
     echo "<th>Clave</th>";
     echo "<th>Asignatura</th>";
     echo "<th>Creditos</th>";
@@ -29,7 +29,7 @@
     echo "</thead>";
     echo "<tbody>";
     echo "<tr>";
-    echo "<td>{$curso->getNrc()}</td>";
+   // echo "<td>{$curso->getNrc()}</td>";
     echo "<td>{$curso->getClave()}</td>";
     echo "<td>{$curso->getAsignatura()}</td>";
     echo "<td>{$curso->getCreditos()}</td>";

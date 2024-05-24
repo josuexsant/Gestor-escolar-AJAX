@@ -6,25 +6,24 @@
   <title>Document</title>
 </head>
 <body>
-  <h2>Agregar estudiante</h2>
-  <form id='add-student-form' method='POST'>
-    <label for='matricula'>Matricula:</label>
-    <br>
-    <input type='text' class="input-text" id='matricula' name='matricula' required><br><br>
-    <label for='nombre'>Nombre:</label>
-    <br>
-    <input type='text' class="input-text" id='nombre' name='nombre' required><br><br>
-    <label for='apellido'>Apellido:</label>
-    <br>
-    <input type='text' class="input-text" id='apellido' name='apellido' required><br><br>
-    <label for='email'>Email:</label>
-    <br>
-    <input type='email' class="input-text" id='email' name='email' required><br><br>
-    <label for='nss'>NSS:</label>
-    <br>
-    <input type='text' class="input-text" id='nss' name='nss' required><br><br>
-    <input type='submit' class="btn" value='Agregar'>
-    <p id='message'></p>
-  
+  <h2>Resultados</h2>
+  <?php
+  include_once '../model/curso.php';
+
+  $curso = new Curso();
+  $cursos = $curso->getAsignacionCursos();
+  ?>
+  <table class ="table-main">
+    <tr>
+      <th>Asignatura</th>
+      <th>Número de veces</th>
+    </tr>
+    <?php foreach ($cursos as $curso): ?>
+      <tr>
+        <td><?php echo $curso['asignatura']; ?></td>
+        <td><?php echo $curso['numero_veces']; ?></td>
+      </tr>
+    <?php endforeach; ?>
+  </table>
 </body>
 </html>

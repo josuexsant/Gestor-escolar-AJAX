@@ -14,13 +14,7 @@
     <div class='dashboard'>
       <li>
         <ul>
-          <a href='#' id='add-student'>Agregar estudiante</a>
-        </ul>
-        <ul>
-          <a href='#' id='edit-student'>Editar estudiante</a>
-        </ul>
-        <ul>
-          <a href='#' id='delete-student'>Eliminar estudiante</a>
+          <a href='#' id='add-student'>Resultados</a>
         </ul>
         <ul>
           <a href='#' id='logout'>Salir</a>

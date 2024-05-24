@@ -26,6 +26,25 @@ class Curso {
         $this->db = $db;
     }
 
+ public function getAsignacionCursos() {
+    $sql = 'SELECT a.nombre AS asignatura, COUNT(ac.curso) AS numero_veces
+            FROM `asignacion-cursos` ac
+            JOIN `cursos` c ON ac.curso = c.nrc
+            JOIN `asignaturas` a ON c.asignatura = a.id
+            GROUP BY a.nombre;';
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    $asignaciones = array();
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $asignaciones[] = array(
+            'asignatura' => $row['asignatura'],
+            'numero_veces' => $row['numero_veces']
+        );
+    }
+    return $asignaciones;
+}
+
+
     public function getCursosInscritos() {
 
         $matricula = $_SESSION[ 'matricula' ];
